@@ -1,6 +1,7 @@
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
+import { trusted } from "mongoose";
 
 console.log("hola mundo");
 // 1- configurar un puerto
@@ -12,14 +13,14 @@ app.listen(app.get("port"), () => {
 });
 
 //2- configurar middlewares
-app.use(morgan("dev")); // nos da informacion extra en la terminar
-app.use(cors()); // permite conexiones remotas
-app.use(express.json()); //interpretar losd ato en formato json de la solicitud
-app.use(express.urlencoded({ extended: true }));
+app.use(cors()); // permite conexiones remota
+app.use(morgan("dev")); // nos da informacion extra en la terminal
+app.use(express.json()); // interprear los datos en formato json de la solicitud
+app.use(express.urlencoded({extended:true}))
 
 // 3- configurar las rutas
 // http://localhost:4000/prueba
 app.get("/prueba", (req, res, next) => {
   console.log("alguien hizo una solicitud get a la ruta de prueba");
-  res.send("hola mundok desde el backend");
+  res.send("hola mundo desde el backend");
 });
