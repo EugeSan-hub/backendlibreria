@@ -6,12 +6,50 @@ const productoSchema = new Schema({
     required: true,
     minLength: 2,
     maxLength: 100,
-    unique:true
+    unique: true,
   },
-  precio :{
+  precio: {
     type: Number,
-    required:true,
-    min:50,
+    required: true,
+    min: 50,
     max: 1000000,
- }
+  },
+
+  imagen: {
+    type: String,
+    required: true,
+    validate: {
+      validator: (valor) => {
+        return /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|jpeg|gif|png)/.test(valor);
+      },
+    },
+  },
+
+  categoria: {
+    type: String,
+    required: true,
+    enum: ["Arte", "Cuadernos", "Escritura", "Hojas"], //esto es para categoria.
+  },
+  marca: {
+    type: String,
+    required: true,
+    minLength: 2,
+    maxLength: 50,
+  },
+  descripcion_breve: {
+    type: String,
+    required: true,
+    minLength: 3,
+    maxLength: 50,
+  },
+  descripcion_amplia: {
+    type: String,
+    required: true,
+    minLength: 50,
+    maxLength: 1000,
+  },
 });
+
+const Producto = mongoose.model("producto", productoSchema);
+
+export default Producto;
