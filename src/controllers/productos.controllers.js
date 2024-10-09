@@ -1,10 +1,11 @@
 import Producto from "../database/model/productos.js";
 
 
-export const funcionPrueba = (req, res) => {
-  console.log("alguien hizo una solicitud get a la ruta de prueba");
-  res.send("hola mundo desde el backend");
-};
+Producto
+export const funcionPrueba = (req, res)=>{
+    console.log('alguien hizo una solicitud get a la ruta de prueba')
+    res.send('Hola mundo desde el backend')
+}
 
 export const crearProducto = async (req, res) => {
 try {
@@ -21,3 +22,17 @@ res.status(201).json({mensaje:'El producto fue creado correctamente'})
   res.status(500).json({mensaje:'ocurrio un error,no se pudo crear el producto'})
 }
 };
+
+export const listarProductos = async(req, res)=>{
+  try {
+   
+   //pedir a la BD la coleccion de productos
+   const productos = await Producto.find()
+   //enviar la respuesta que pudimos crear el producto
+   res.status(200).json(productos)
+  } catch (error) {
+   console.error(error)
+   res.status(500).json({mensaje: 'Ocurrio un error, no se pudo crear el producto'})
+  }
+  
+}
